@@ -5,6 +5,18 @@ get '/' do
 	erb :index		#"Main Menu" - we're replacing 'Main menu' with index.erb
 end
 
-get '/contacts' do
-	erb :contacts
+get '/contacts' do #view all conatct
+	erb :contact_list
+end
+
+get '/contacts/new' do
+	erb :contact_new
+end
+
+get '/contacts/:id' do #view a contact
+	erb :contact_id
+end
+
+get '/contacts/:id/edit' do #modify an existing contact
+	erb :contact_edit
 end
