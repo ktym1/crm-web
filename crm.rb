@@ -1,4 +1,5 @@
 require_relative "contact"
+require_relative "rolodex"
 require "sinatra"
 
 get '/' do 
@@ -6,8 +7,8 @@ get '/' do
 	erb :index		#"Main Menu" - we're replacing 'Main menu' with index.erb
 end
 
-get '/contacts' do #view all conatct
-	@contacts = []
+get '/contacts' do #view all contact
+	@contacts = [] #creating an empty array to store my instances of Contact class
 	@contacts << Contact.new("Julie", "Hache", "julie@bitmakerlabs.com", "Instructor")
 	@contacts << Contact.new("Will", "Richman", "will@bitmakerlabs.com", "Co-Founder")
 	@contacts << Contact.new("Chris", "Johnston", "chris@bitmakerlabs.com", "Instructor")
