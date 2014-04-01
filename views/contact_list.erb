@@ -1,9 +1,18 @@
-<!DOCTYPE>
+<!DOCTYPE HTML>
 <html>
 <head> </head>
 
 <body>
-	<h1> John Smith </h1>
+	<h1> All contacts </h1>
+
+<ul>
+	<% @contacts.each do |contact| %> <!-- This allligator is good for each statements since it only executes the code, not output value-->
+		<li> <%= contact.first_name %> <%= contact.last_name %> </li>  <!-- This alligator behaves like a puts -->
+		<li> <%= contact.email %> </li>
+		<li> <%= contact.role %> </li>
+	<% end %> <!--#the end needs to be in alligator brackets too-->
+</ul>
+
 </body>
 
 </html>
