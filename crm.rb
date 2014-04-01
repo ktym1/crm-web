@@ -1,6 +1,6 @@
 require "sinatra"
 
 get '/' do 
-	"Main Menu"
+	erb :index		#"Main Menu" - we're replacing 'Main menu' with index.erb
 end
 
