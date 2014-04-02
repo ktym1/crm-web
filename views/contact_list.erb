@@ -9,11 +9,14 @@
 	<!-- we've replaced @contacts.each with @@rolodex.contacts.each-->
 
 	<% @@rolodex.contacts.each do |contact| %> <!-- This allligator is good for each statements since it only executes the code, not output value-->
-		<li> <%= contact.first_name %> <%= contact.last_name %> </li>  <!-- This alligator behaves like a puts -->
-		<li> <%= contact.email %> </li>
-		<li> <%= contact.role %> </li>
+		<li>
+			First name: <%= contact.first_name %> Last name: <%= contact.last_name %> 
+			<a href="/contacts/<%= contact.id %>/delete">Delete</a>
+		</li>  <!-- This alligator behaves like a puts -->
 	<% end %> <!--#the end needs to be in alligator brackets too-->
 </ul>
+
+<a href="/">Back to home</a>
 
 </body>
 
