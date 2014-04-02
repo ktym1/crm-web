@@ -4,6 +4,7 @@ class Rolodex
 	def initialize
 	@contacts = []
 	@id = 1000
+	end
 
 
 	def add_a_contact(contact)

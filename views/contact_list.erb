@@ -6,7 +6,9 @@
 	<h1> All contacts </h1>
 
 <ul>
-	<% @contacts.each do |contact| %> <!-- This allligator is good for each statements since it only executes the code, not output value-->
+	<!-- we've replaced @contacts.each with @@rolodex.contacts.each-->
+
+	<% @@rolodex.contacts.each do |contact| %> <!-- This allligator is good for each statements since it only executes the code, not output value-->
 		<li> <%= contact.first_name %> <%= contact.last_name %> </li>  <!-- This alligator behaves like a puts -->
 		<li> <%= contact.email %> </li>
 		<li> <%= contact.role %> </li>
