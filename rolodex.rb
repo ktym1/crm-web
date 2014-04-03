@@ -24,4 +24,9 @@ class Rolodex
 		end 
 		@contacts.delete(result) if result != nil
 	end
+
+	def find(foo)
+		@contacts.find {|contact| contact.id == foo}
+	end
+
 end

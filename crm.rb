@@ -6,6 +6,8 @@ require_relative "rolodex"
 
 @@rolodex= Rolodex.new #create a class variable before the 'routes' (route = get "/") so Sinatra can access it from anywhere in route blocks and views
 
+@@rolodex.add_a_contact(Contact.new("Will", "Richman", "will@bitmakerlabs.com", "Co-Founder")) #creating a fake contact when loading the app.œ
+
 get '/' do 
 	@crm_app_name = "Kerry's CRM" #setting up an instance variable that we can pass along
 	erb :index		#"Main Menu" - we're replacing 'Main menu' with index.erb
@@ -43,5 +45,6 @@ get '/contacts/:id/edit' do #modify an existing contact
 	erb :contact_edit
 end
 
+contact = @@rolodex.find(1000)
 
 
