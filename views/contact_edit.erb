@@ -9,7 +9,7 @@ Try adding and removing the hidden field and keep an eye on the terminal server 
 <h1> Edit a Contact </h1>
 
 <form action="/contacts/<%= @contact.id %>" method="post">
-	<input type="hidden" name="_method" value="put">
+	<input type="hidden" name="_method" value="put"> <%# I'm using this hidden method to use 'put' e.g. update. If not, it would post 'create new'. Reminder that HTML forms only accept GET/Post #%>
 	<input type="text" name="first_name" value="<%= @contact.first_name %>">
 	<input type="text" name="last_name" value="<%= @contact.last_name %>">
 	<input type="text" name="email" value="<%= @contact.email %>">

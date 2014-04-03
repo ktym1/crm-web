@@ -49,6 +49,19 @@ get '/contacts/:id/edit' do #modify an existing contact
 		raise Sinatra::Not Found # :: operator that allows constants, instance methods and class methods defined within a clas or module to be accessed from anywhere outside the class or module
 	end
 end
+
+put "/contacts/:id" do
+	@contact = @@rolodex.find(params[:id].to_i)
+	if @contact
+		@contact.first_name = params[:first_name]
+		@contact.last_name = params[:last_name]
+		@contact.email = params[:email]
+		@contact.id = params[:id]
+
+		redirect to ('/contacts/#{@contact.id')
+	else
+		raise Sinatra::Not Found
+	end
 end
 
 get "/contacts/:id" do
