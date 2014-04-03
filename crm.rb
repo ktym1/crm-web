@@ -36,13 +36,19 @@ get '/contacts/:id/delete' do
 end
 
 
-get '/contacts' do 
+get '/contacts' do  	
  	erb :contact_list
 end
 
 
 get '/contacts/:id/edit' do #modify an existing contact
-	erb :contact_edit
+	@contact = @@rolodex.find(params[:id].to_i) #need to find corresponding contact object and put in a variable so our view can access it
+	if @contact
+		erb :contact_edit #if contact IDs match, go to the edit page
+	else
+		raise Sinatra::Not Found # :: operator that allows constants, instance methods and class methods defined within a clas or module to be accessed from anywhere outside the class or module
+	end
+end
 end
 
 get "/contacts/:id" do

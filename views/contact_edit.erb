@@ -1,0 +1,18 @@
+<%# We need to tell our form to use the method "put" because we're updating data. It's not as easy as setting up "post." HTML FORMS ONLY SUPPORT GET & POST AS REQUEST METHODS!
+
+The workaround convention: adding an extra hidden field "_method" that contains the real value of the request(in this case we're working with PUT so that value will be put)
+
+Try adding and removing the hidden field and keep an eye on the terminal server logs, you'll see that when it is present, our form makes a PUT request and without it, it should be a POST.
+- The second difference is that we will have to set default values in the form that currently belong to the @contact. 
+- We also have a special form action: we want to do a "put" request to "/contacts/:id", so we'll add the value of the contact's id in our action #%> 
+
+<h1> Edit a Contact </h1>
+
+<form action="/contacts/<%= @contact.id %>" method="post">
+	<input type="hidden" name="_method" value="put">
+	<input type="text" name="first_name" value="<%= @contact.first_name %>">
+	<input type="text" name="last_name" value="<%= @contact.last_name %>">
+	<input type="text" name="email" value="<%= @contact.email %>">
+	<input type="text" name="id" value="<%= @contact.id %>">
+	<input type="submit" name="Submit">
+</form>
