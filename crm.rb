@@ -27,7 +27,7 @@ end
 post '/contacts' do
 	new_contact = Contact.new(params[:first_name], params[:last_name], params[:email], params[:role]) #initializing a class of Contact to pass through the Rolodex method
 	@@rolodex.add_a_contact(new_contact) #this arguement doesn't need to be foo. it's only the object that's being created and passed to rolodex
- 	redirect to('/contacts')
+ 	redirect to("/contacts/#{new_contact.id}") #we are substituting the instance of new_contact that we created, and the id since we need an actual number.
 end
 
 get '/contacts/:id/delete' do
@@ -43,6 +43,11 @@ end
 
 get '/contacts/:id/edit' do #modify an existing contact
 	erb :contact_edit
+end
+
+get "/contacts/:id" do
+	@contact = @@rolodex.find(params[:id].to_i) #generalized this route so that :id can be any contact id, making it a wildcard.
+	erb :show_contact # Patterns work by putting a semicolon ahead of the item we want to match and capture. Every time we use a pattern or submit any information, it will always be available inside the params hash.
 end
 
 contact = @@rolodex.find(1000)
