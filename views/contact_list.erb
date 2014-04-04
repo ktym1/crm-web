@@ -2,11 +2,11 @@
 <h1> All Contacts </h1>
 
 <ul>
-	<!-- we've replaced @contacts.each with @@rolodex.contacts.each-->
+	<!-- we've replaced @@rolodex.contacts.each with @contacts.each-->
 
-	<% @@rolodex.contacts.each do |contact| %> <!-- This allligator is good for each statements since it only executes the code, not output value-->
+	<% @contacts.each do |contact| %> <!-- This allligator is good for each statements since it only executes the code, not output value-->
 
-	<li> Contact name: <%= contact.first_name %> <%= contact.last_name %> </li>	
+	<li><a href="/contacts/<%= contact.id %>">Contact name: <%= contact.first_name %> <%= contact.last_name %> </a></li>	
 	<a href="/contacts/<%= contact.id %>/edit"> Edit</a>
 	<a href="/contacts/<%= contact.id %>"> View Contact </a>
 	<% end %> <!--#the end needs to be in alligator brackets too-->

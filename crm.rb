@@ -14,13 +14,6 @@ class Contact
 	property :email, String
 	property :role, String
 
-
-	def initialize(first_name, last_name, email, role)
-		@first_name = first_name
-		@last_name = last_name
-		@email = email
-		@role = role
-	end
 end
 
 DataMapper.finalize #add at end of class definitions
@@ -33,27 +26,26 @@ get '/' do
 	erb :index		#"Main Menu" - we're replacing 'Main menu' with index.erb
 end
 
-# ***no longer need @contacts array, because @@rolodex class instance can access contacts array 
-#get '/contacts' do #view all contact
-#    #@contacts = [] #create an empty array to store Contact class instances; 
- 	# @contacts << Contact.new("Julie", "Hache", "julie@bitmakerlabs.com", "Instructor")
- 	# @contacts << Contact.new("Will", "Richman", "will@bitmakerlabs.com", "Co-Founder")
- 	# @contacts << Contact.new("Chris", "Johnston", "chris@bitmakerlabs.com", "Instructor")
+get '/contacts/new' do
+	erb :contact_new
+end
 
- 	get '/contacts/new' do
- 		erb :contact_new
- 	end
+post '/contacts' do
+	contact = Contact.create(
+		:first_name => params[:first_name],
+		:last_name => params[:last_name],
+		:email => params[:email],
+		:role => params[:note]
+		)
 
- 	post '/contacts' do
-	new_contact = Contact.new(params[:first_name], params[:last_name], params[:email], params[:role]) #initializing a class of Contact to pass through the Rolodex method
-	@@rolodex.add_a_contact(new_contact) #this arguement doesn't need to be foo. it's only the object that's being created and passed to rolodex
- 	redirect to("/contacts/#{new_contact.id}") #we are substituting the instance of new_contact that we created, and the id since we need an actual number.
- end
+		redirect to("/contacts/#{contact.id}") #need to update from new_contact to contact bc I changed the variable name
+	end
 
 
- get '/contacts' do  	
- 	erb :contact_list
- end
+get '/contacts' do
+		@contacts = Contact.all  	
+		erb :contact_list
+end
 
 
 get '/contacts/:id/edit' do #modify an existing contact
