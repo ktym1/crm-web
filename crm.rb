@@ -77,8 +77,7 @@ put "/contacts/:id" do
 end
 
 get "/contacts/:id" do
-	#generalized this route so that :id can be any contact id, making it a wildcard.
-	@contact = @@rolodex.find(params[:id].to_i)
+	@contact = Contact.get(params[:id].to_i) #DataMapper uses Contact.get to return the contact object. 
 	if @contact
 		# Patterns work by putting a semicolon ahead of the item we want to match and capture. Every time we use a pattern or submit any information, it will always be available inside the params hash.
 		erb :show_contact 
