@@ -14,9 +14,9 @@ class Contact
 		@role = role
 	end
 
-	def to_s
-		"First Name: #{@first_name}\nLast Name: #{@last_name}\nEmail: #{@email}\NRole: #{@role}"
-	end	
+	# def to_s
+	# 	"First Name: #{@first_name}\nLast Name: #{@last_name}\nEmail: #{@email}\NRole: #{@role}"
+	# end	
 end
 # contact_one = Contact.new("","","test","")
 # contact_one.

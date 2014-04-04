@@ -1,7 +1,13 @@
 <h1><%= @contact.first_name %> <%= @contact.last_name %> </h1>
-<p><strong> Email: </strong></p> <%= @contact.email %></p>
-<p><strong> Role: </strong></p>
-<p><%= @contact.role %></p>
+<p><strong> Email: </strong></p><p> <%= @contact.email %></p>
+<p><strong> Role: </strong></p> <p><%= @contact.role %></p>
 
-<a href="/">Back to home</a>
+<!-- inserting a delete form with a hidden "_method" field because the DELETE action and the URL that represents the contact resource are sufficient. We don't need additional input from the user -->
+
+<form action="/contacts/<%= @contact.id %>" method="post">
+	<input type="hidden" name="_method" value="delete">
+	<input type="submit" name="Delete Contact" value="Delete">
+</form>
+<p><a href="/">Back to home</a></p>
+<!-- ruby -->
 
