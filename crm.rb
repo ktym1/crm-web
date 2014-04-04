@@ -1,10 +1,32 @@
 require "sinatra"
-require_relative "contact" 
+require "data_mapper"
+#require_relative "contact" - remove contact class & delete the class bc of DataMapper
 require_relative "rolodex"
 
-@@rolodex= Rolodex.new #create a class variable before the 'routes' (route = get "/") so Sinatra can access it from anywhere in route blocks and views
+DataMapper.setup(:default, "sqlite3:database.sqlite3")
 
-@@rolodex.add_a_contact(Contact.new("Will", "Richman", "will@bitmakerlabs.com", "Co-Founder")) #creating a fake contact when loading the app.œ
+class Contact
+	include DataMapper::Resource #since we've included this resource module, DataMapper will start to consider this class to represent a single database table. Every time we createa a new Contact record, it will automatically be inserted into the contacts database table.
+
+	property :id, Serial #serial is an integer that automatically increments
+	property :first_name, String
+	property :last_name, String
+	property :email, String
+	property :role, String
+
+
+	def initialize(first_name, last_name, email, role)
+		@first_name = first_name
+		@last_name = last_name
+		@email = email
+		@role = role
+	end
+end
+
+DataMapper.finalize #add at end of class definitions
+DataMapper.auto_upgrade! #effects any changes to the underlying structure of the tables or columns
+
+@@rolodex= Rolodex.new #create a class variable before the 'routes' (route = get "/") so Sinatra can access it from anywhere in route blocks and views
 
 get '/' do 
 	@crm_app_name = "Kerry's CRM" #setting up an instance variable that we can pass along
