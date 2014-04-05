@@ -1,7 +1,6 @@
 require "sinatra"
 require "data_mapper"
 #require_relative "contact" - remove contact class & delete the class bc of DataMapper
-require_relative "rolodex"
 
 DataMapper.setup(:default, "sqlite3:database.sqlite3")
 
@@ -18,8 +17,6 @@ end
 
 DataMapper.finalize #add at end of class definitions
 DataMapper.auto_upgrade! #effects any changes to the underlying structure of the tables or columns
-
-@@rolodex= Rolodex.new #create a class variable before the 'routes' (route = get "/") so Sinatra can access it from anywhere in route blocks and views
 
 get '/' do 
 	@crm_app_name = "Kerry's CRM" #setting up an instance variable that we can pass along
@@ -42,16 +39,14 @@ post '/contacts' do
 	end
 
 
-get '/contacts' do
+	get '/contacts' do
 		@contacts = Contact.all  	
 		erb :contact_list
-end
+	end
 
 
 get '/contacts/:id/edit' do #modify an existing contact
-	puts params
-
-	@contact = @@rolodex.find(params[:id].to_i)
+	@contact = Contact.get(params[:id].to_i)
 	if @contact
 		erb :contact_edit #if contact IDs match, go to the edit page
 	else
@@ -60,12 +55,18 @@ get '/contacts/:id/edit' do #modify an existing contact
 end
 
 put "/contacts/:id" do
-	@contact = @@rolodex.find(params[:id].to_i)
+	@contact = Contact.get(params[:id].to_i)
 	if @contact
-		@contact.first_name = params[:first_name]
-		@contact.last_name = params[:last_name]
-		@contact.email = params[:email]
-		
+		# @contact.first_name = params[:first_name]
+		# @contact.last_name = params[:last_name]
+		# @contact.email = params[:email]
+		# @contact.role = params[:role]
+		@contact.update(
+			:first_name => params[:first_name],
+			:last_name => params[:last_name],
+			:email => params[:email], 
+			:role =>[:role]
+			)
 		# @contact.id = params[:id] Need to delete this ID because we're taking it in as an integer and passing it back as a string on our redirect, causing error.
 		# @contact.id => 1001
 		# @contact.id => "1001"
@@ -87,9 +88,10 @@ get "/contacts/:id" do
 end
 
 delete '/contacts/:id' do
-	@contact = @@rolodex.find(params[:id].to_i)
+	@contact = Contact.get(params[:id].to_i)
 	if @contact
-		@@rolodex.remove_contact(@contact)
+		@contact.destroy
+		# @@rolodex.remove_contact(@contact)
 		redirect to("/contacts")
 	else
 		raise Sinatra::NotFound
