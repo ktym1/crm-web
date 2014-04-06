@@ -1,8 +1,12 @@
+/*normalize.css layout.css typography.css */
+
 body, form {
 	margin: 0;
 	padding: 0;
 	font-family: Arial, verdana, sans-serif;
-	background-color: rgb(236, 266, 207);
+	font color: rgb(253,253,250);
+	background-image: url("grey_wash_wall.png");
+	background-position: top center;
 }
 
 a {
